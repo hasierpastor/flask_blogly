@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form class="form m-3">
+  <h1>Edit a user</h1>
+      <div class="form-group col-3">
+        <label for="edit-first-name">First Name</label>
+        <input name="first-name" value="{{user.first_name}}" type="text" class="form-control" id="edit-first-name" aria-describedby="firstNameHelp" placeholder="Enter first name">
+      </div>
+      <div class="form-group col-3">
+          <label for="edit-last-name">Last Name</label>
+          <input name="last-name" value="{{user.last_name}}" type="text" class="form-control" id="edit-last-name" aria-describedby="lastNameHelp" placeholder="Enter last name">
+        </div>
+      <div class="form-group col-3">
+          <label for="edit-image-url">Image Url</label>
+          <input name="image-url" value="{{user.image_url}}" type="url" class="form-control" id="edit-image-url" placeholder="Provide and image of this user">
+        </div>
+        <button class="btn btn-outline-primary" id="cancel-edit" formaction="/users/{{user.id}}" formmethod="GET">Cancel</button>
+        <button class="btn btn-success" id="create-user" formaction="/users/{{user.id}}/edit" formmethod="POST">Save User</button>
+</form>
+
+
+
+{% endblock %}

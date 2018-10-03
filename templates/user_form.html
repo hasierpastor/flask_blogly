@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form class="form m-3" method="POST" action="/users/new">
+      <div class="form-group col-3">
+        <label for="first-name">First Name</label>
+        <input name="first-name" type="text" class="form-control" id="first-name" aria-describedby="firstNameHelp" placeholder="Enter first name">
+      </div>
+      <div class="form-group col-3">
+          <label for="last-name">Last Name</label>
+          <input name="last-name" type="text" class="form-control" id="last-name" aria-describedby="lastNameHelp" placeholder="Enter last name">
+        </div>
+      <div class="form-group col-3">
+          <label for="image-url">Image Url</label>
+          <input name="image-url" type="url" class="form-control" id="image-url" placeholder="Provide and image of this user">
+        </div>
+        <button class="btn btn-outline-primary" id="create-user">Create User</button>
+      
+</form>
+
+{% endblock %}

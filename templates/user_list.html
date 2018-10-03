@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container m-3">
+  <h1>Users</h1>
+  <ul id="user-list">
+    {% for user in users %}
+    <li>{{user.full_name}}</li>
+    {% endfor %}
+  </ul>
+  <form action="/users/new">
+  <button class="btn btn-outline-primary" id="add-user">Add User</button>
+  </form>
+</div>
+
+
+
+{% endblock %}
+
+
+
