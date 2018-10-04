@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container m-3">
+  <div class="row">
+    <div class="col-3">
+      <h1>{{post.title}}</h1>
+      <br>
+      <p>{{post.content}}</p>
+      <p>By {{user.full_name}}</p>
+      <form>
+      <button class="btn btn-primary" id="cancel-post" formaction="/users" formmethod="GET">Cancel</button>
+      <button class="btn btn-primary" id="edit-post" formaction="/post/{{id}}/edit" formmethod="GET">Edit</button>
+      <button class="btn btn-danger" id="delete-post" formaction="/post/{{id}}/delete" formmethod="POST">Delete</button>
+      </form>
+    </div>
+
+  </div>
+ 
+</div>
+{% endblock %}

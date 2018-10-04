@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -55,7 +56,7 @@ class Post(db.Model):
     nullable=False)
 
     user_id = db.Column(db.Integer,
-    db.ForeignKey('users.id')))
+    db.ForeignKey('users.id'))
 
     user = db.relationship('User')
 

@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask,request, redirect, render_template, jsonify, session
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = "SECRET!"
 connect_db(app)
 debug = DebugToolbarExtension(app)
 
-# db.create_all()
+db.create_all()
 
 @app.route('/')
 def redirect_list_users():
@@ -90,3 +90,33 @@ def delete_user(user_id):
     db.session.commit()
 
     return redirect('/users')
+
+@app.route('/users/<int:user_id>/posts/new')
+def display_post_form(user_id):
+    """Show a form for a user to add a post"""
+
+    user = User.query.get_or_404(user_id)
+
+    return render_template('add_post.html', user=user)
+
+@app.route('/users/<int:user_id>/posts/new', methods=["POST"])
+def add_post(user_id):
+    """Add post from user and redirect to user details page"""
+
+    post_title = request.form.get('post-title') or None
+    post_content = request.form.get("post-content") or None
+
+    new_post = Post(title=post_title, content=post_content, user_id=user_id)
+
+    db.session.add(new_post)
+    db.session.commit()
+
+    return redirect(f'/users/{str(user_id)}')
+
+@app.route('/posts/<int:post_id>')
+def show_post(post_id):
+
+    post = Post.query.get(post_id) or None
+    user = User.query.get(post.user_id) or None
+
+    return render_template('show_post.html', post=post, user=user)
