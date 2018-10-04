@@ -39,10 +39,11 @@ def add_user_form():
     """Display a form which allows you to create a new user"""
     return render_template('add_user.html')
 
+
 @app.route('/users/new', methods=["POST"])
 def add_new_user():
     """Get user details from form and add user to our database, redirect to user
-    list after """
+    list after"""
 
     first_name = request.form.get('first-name') or None
     last_name = request.form.get("last-name") or None
@@ -67,8 +68,10 @@ def display_user_details(user_id):
 @app.route('/users/<int:user_id>/edit')
 def display_edit_user_form(user_id):
     """Display a form to edit a users details"""
+    
     user = User.query.get_or_404(user_id)
     return render_template('edit_user.html',user=user)
+
 
 @app.route('/users/<int:user_id>/edit', methods=["POST"])
 def edit_user(user_id):
@@ -111,7 +114,7 @@ def display_post_form(user_id):
 
 @app.route('/users/<int:user_id>/posts/new', methods=["POST"])
 def add_post(user_id):
-    """Add post from user and redirect to user details page"""
+    """Add post and tag for user and redirect to user details page"""
 
     post_title = request.form.get('post-title') or None
     post_content = request.form.get("post-content") or None
@@ -139,13 +142,15 @@ def show_post(post_id):
 
 @app.route('/posts/<int:post_id>/edit')
 def display_edit_post_form(post_id):
-    """Display form to edit a post"""
+    """Display form to edit a post, mark check boxes as checked if post has tags otherwise leave unchecked"""
 
     post = Post.query.get_or_404(post_id)
     user = post.user
-    tags = Tag.query.all() or []
+    all_tags = Tag.query.all()
+    checked_tags = post.tags or []
+    unchecked_tags = [tag for tag in all_tags if tag not in checked_tags]
 
-    return render_template('edit_post.html', post=post, user=user, tags=tags)
+    return render_template('edit_post.html', post=post, user=user, checked_tags=checked_tags, unchecked_tags=unchecked_tags)
 
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
@@ -199,7 +204,7 @@ def display_posts_with_tag(tag_id):
     tag = Tag.query.get_or_404(tag_id) 
     posts = tag.posts
 
-    return render_template('tag_posts_list.html', posts=posts, tag=tag)
+    return render_template('tag_posts_list.html', posts=posts, tag=tag, Tag=Tag)
 
 
 @app.route('/tags/new')
