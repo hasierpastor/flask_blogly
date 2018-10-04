@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Edit a tag</h1>
+<form class="form m-3">
+  <div class="form-group col-3">
+    <label for="edit-tag-name">Name</label>
+    <input name="edit-tag-name" type="text" class="form-control" id="edit-tag-name" aria-describedby="tagNameHelp" value="{{tag.name}}">
+  </div>
+    <button class="btn btn-outline-primary" id="cancel-edit-tag" formaction="/tags/{{tag.id}}" formmethod="POST">Cancel</button> 
+    <button class="btn btn-success" id="edit-tag" formaction="/tags/{{tag.id}}/edit" formmethod="POST">Edit</button>
+</form>
+{% endblock %}

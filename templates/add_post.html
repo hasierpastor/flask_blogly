@@ -12,6 +12,14 @@
         <label for="post-content">Content</label>
         <textarea name="post-content" rows="4" type="text" class="form-control" id="post-content" aria-describedby="postContentHelp" placeholder="Enter post body here"></textarea>
       </div>
+      <div class="my-3">
+        {% for tag in tags %}
+        <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" name="tag-name" value="{{tag.id}}" id="tag-id-{{tag.id}}">
+        <label class="custom-control-label" for="tag-id-{{tag.id}}">{{tag.name}}</label>
+        </div>
+        {% endfor %}
+      </div>
       <button class="btn btn-outline-primary" id="cancel-post" formaction="/users/{{user.id}}" formmethod="GET">Cancel</button>
       <button class="btn btn-success" id="create-post" formaction="/users/{{user.id}}/posts/new" formmethod="POST">Add</button>
 </form>

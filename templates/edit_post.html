@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form class="form m-3">
+  <h1>Edit Post</h1>
+      <div class="form-group col-3">
+        <label for="edit-title">Title</label>
+        <input name="edit-title" value="{{post.title}}" type="text" class="form-control" id="edit-title" aria-describedby="postTitleHelp" placeholder="Post title here">
+      </div>
+      <div class="form-group col-3">
+        <label for="edit-content">Content</label>
+        <textarea name="edit-content" rows="4" type="text" class="form-control" id="edit-content" aria-describedby="postContentHelp" placeholder="Enter post body here">{{post.content}}</textarea>
+      </div>
+      <div class="my-3">
+          {% for tag in tags %}
+          <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" name="tag-name" value="{{tag.id}}" id="tag-id-{{tag.id}}" {% if tag.id in post.tags %} checked="" {% endif %}>
+          <label class="custom-control-label" for="tag-id-{{tag.id}}">{{tag.name}}</label>
+          </div>
+          <h5>{{post.tags[0].id}}</h5>
+          {% endfor %}
+        </div>
+      <button class="btn btn-outline-primary" id="cancel-edit" formaction="/users/{{user.id}}" formmethod="GET">Cancel</button>
+      <button class="btn btn-success" id="edit-post" formaction="/posts/{{post.id}}/edit" formmethod="POST">Add</button>
+</form>
+
+
+
+{% endblock %}

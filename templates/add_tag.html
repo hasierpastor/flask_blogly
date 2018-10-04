@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Create a tag</h1>
+<form class="form m-3">
+  <div class="form-group col-3">
+    <label for="tag-name">Name</label>
+    <input name="tag-name" type="text" class="form-control" id="tag-name" aria-describedby="tagNameHelp" placeholder="Enter a name for the tag">
+  </div>
+    <button class="btn btn-outline-primary" id="cancel-tag" formaction="/tags" formmethod="POST">Cancel</button> 
+    <button class="btn btn-success" id="create-tag" formaction="/tags/new" formmethod="POST">Add</button>
+</form>
+{% endblock %}
