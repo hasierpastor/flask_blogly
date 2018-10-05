@@ -7,6 +7,20 @@
     <label for="edit-tag-name">Name</label>
     <input name="edit-tag-name" type="text" class="form-control" id="edit-tag-name" aria-describedby="tagNameHelp" value="{{tag.name}}">
   </div>
+  <div class="my-3">
+      {% for checked in checked_posts %}
+      <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" name="post-name" value="{{checked.id}}" id="tag-id-{{checked.id}}" checked="">
+      <label class="custom-control-label" for="tag-id-{{checked.id}}">{{checked.title}}</label>
+      </div>
+      {% endfor %}
+      {% for unchecked in unchecked_posts %}
+      <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" name="post-name" value="{{unchecked.id}}" id="tag-id-{{unchecked.id}}">
+      <label class="custom-control-label" for="tag-id-{{unchecked.id}}">{{unchecked.title}}</label>
+      </div>
+      {% endfor %}
+  </div>
     <button class="btn btn-outline-primary" id="cancel-edit-tag" formaction="/tags/{{tag.id}}" formmethod="POST">Cancel</button> 
     <button class="btn btn-success" id="edit-tag" formaction="/tags/{{tag.id}}/edit" formmethod="POST">Edit</button>
 </form>

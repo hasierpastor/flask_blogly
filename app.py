@@ -211,7 +211,9 @@ def display_posts_with_tag(tag_id):
 def display_form_create_tag():
     """Display a form to create a tag"""
 
-    return render_template('add_tag.html')
+    posts = Post.query.all() or []
+
+    return render_template('add_tag.html', posts=posts)
 
 @app.route('/tags/new', methods=['POST'])
 def create_tag():
@@ -219,8 +221,14 @@ def create_tag():
 
     tag_name = request.form.get('tag-name') or None
 
-    tag = Tag(name=tag_name)
-    db.session.add(tag)
+    new_tag = Tag(name=tag_name)
+
+    posts = request.form.getlist('post-id')
+    for post_id in posts:
+        new_post = Post.query.get(post_id)
+        new_tag.posts.append(new_post)
+
+    db.session.add(new_tag)
     db.session.commit()
 
     return redirect('/tags')
@@ -231,7 +239,11 @@ def display_tag_edit_form(tag_id):
     
     tag = Tag.query.get_or_404(tag_id)
 
-    return render_template('edit_tag.html', tag=tag)
+    all_posts = Post.query.all()
+    checked_posts = tag.posts or []
+    unchecked_posts = [post for post in all_posts if post not in checked_posts]
+
+    return render_template('edit_tag.html', tag=tag, checked_posts=checked_posts, unchecked_posts=unchecked_posts)
 
 @app.route('/tags/<int:tag_id>/edit', methods=['POST'])
 def edit_tag(tag_id):

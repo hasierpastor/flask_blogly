@@ -25,7 +25,7 @@
           <label class="custom-control-label" for="tag-id-{{unchecked.id}}">{{unchecked.name}}</label>
           </div>
           {% endfor %}
-        </div>
+      </div>
       <button class="btn btn-outline-primary" id="cancel-edit" formaction="/users/{{user.id}}" formmethod="GET">Cancel</button>
       <button class="btn btn-success" id="edit-post" formaction="/posts/{{post.id}}/edit" formmethod="POST">Add</button>
 </form>
